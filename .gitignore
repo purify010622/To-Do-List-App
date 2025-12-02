@@ -1,0 +1,55 @@
+# Root level .gitignore for Todo App
+
+# Environment files with credentials
+.env
+.env.local
+.env.*.local
+
+# Firebase service account keys (CRITICAL - NEVER COMMIT)
+*firebase-adminsdk*.json
+*.json
+!package.json
+!package-lock.json
+!pubspec.lock
+!tsconfig.json
+!jest.config.js
+!firebase.json
+!railway.json
+!render.yaml
+
+# Android signing keys (CRITICAL - NEVER COMMIT)
+*.jks
+*.keystore
+key.properties
+
+# Build outputs
+build/
+dist/
+*.apk
+*.aab
+*.ipa
+
+# Dependencies
+node_modules/
+.pub-cache/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp

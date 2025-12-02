@@ -1,0 +1,23 @@
+# Android App Signing Configuration
+# 
+# IMPORTANT: This is a template file. Create your actual key.properties file:
+# 1. Copy this file to key.properties (same directory)
+# 2. Generate a keystore (see android/SIGNING_SETUP.md)
+# 3. Fill in your actual values below
+# 4. NEVER commit key.properties to version control!
+#
+# See android/SIGNING_SETUP.md for detailed instructions
+
+# Keystore password (from keytool generation)
+storePassword=YOUR_KEYSTORE_PASSWORD_HERE
+
+# Key password (from keytool generation)
+keyPassword=YOUR_KEY_PASSWORD_HERE
+
+# Key alias (default is 'upload')
+keyAlias=upload
+
+# Path to keystore file
+# Windows example: C:/Users/YourUsername/upload-keystore.jks
+# macOS/Linux example: /Users/yourusername/upload-keystore.jks
+storeFile=PATH_TO_YOUR_KEYSTORE_FILE
