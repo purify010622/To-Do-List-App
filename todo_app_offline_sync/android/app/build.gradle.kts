@@ -21,12 +21,13 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.todoapp.todo_app_offline_sync"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlin {
@@ -40,7 +41,7 @@ android {
         applicationId = "com.todoapp.todo_app_offline_sync"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 21  // Required for Firebase and notifications
+        minSdk = flutter.minSdkVersion  // Required for Firebase and notifications
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -80,4 +81,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

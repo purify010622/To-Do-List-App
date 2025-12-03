@@ -4,15 +4,15 @@
 /// Update the production URL after deploying the backend.
 class AppConfig {
   /// Environment type
-  static const Environment environment = Environment.development;
+  static const Environment environment = Environment.production;
 
   /// API base URL based on environment
   static String get apiBaseUrl {
     switch (environment) {
       case Environment.development:
-        return 'http://localhost:3000/api';
+        return 'http://192.168.1.x:3000/api'; // Replace x with your computer's IP
       case Environment.production:
-        return 'https://your-app.onrender.com/api'; // TODO: Update with your deployed URL
+        return 'https://codsoft-dad2.onrender.com'; // TODO: Update with your deployed URL
     }
   }
 

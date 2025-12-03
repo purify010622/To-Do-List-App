@@ -53,7 +53,7 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   
   # Notifications
-  flutter_local_notifications: ^16.3.0
+  flutter_local_notifications: ^17.2.3
   
   # HTTP Client
   dio: ^5.4.0
