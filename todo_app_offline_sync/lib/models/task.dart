@@ -79,6 +79,7 @@ class Task {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'taskId': id, // Backend expects taskId
       'title': title,
       'description': description,
       'priority': priority,
@@ -92,7 +93,7 @@ class Task {
   /// Creates a task from a JSON map
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-      id: json['id'] as String,
+      id: (json['id'] ?? json['taskId']) as String, // Handle both id and taskId
       title: json['title'] as String,
       description: json['description'] as String?,
       priority: json['priority'] as int,

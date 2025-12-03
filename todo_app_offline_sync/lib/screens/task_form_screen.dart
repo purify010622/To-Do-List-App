@@ -185,6 +185,21 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                     ),
                   ],
                 ),
+                
+                // Delete button (only show when editing)
+                if (isEditing) ...[
+                  const SizedBox(height: 16),
+                  OutlinedButton.icon(
+                    onPressed: _isLoading ? null : _handleDelete,
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      foregroundColor: Colors.red,
+                      side: const BorderSide(color: Colors.red),
+                    ),
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Delete Task'),
+                  ),
+                ],
               ],
             ),
           )
@@ -433,5 +448,48 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
             ),
           );
     }
+  }
+
+  /// Handle delete button press
+  void _handleDelete() {
+    // Haptic feedback
+    HapticFeedback.heavyImpact();
+    
+    // Show confirmation dialog
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Task'),
+        content: const Text('Are you sure you want to delete this task? This action cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Close dialog
+              Navigator.of(context).pop();
+              
+              // Delete task
+              context.read<TaskBloc>().add(DeleteTask(widget.task!.id));
+              
+              // Close form screen
+              Navigator.of(context).pop();
+              
+              // Show confirmation
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Task "${widget.task!.title}" deleted'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
   }
 }

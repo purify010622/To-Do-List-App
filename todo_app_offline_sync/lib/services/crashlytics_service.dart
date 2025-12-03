@@ -174,7 +174,7 @@ class CrashlyticsService {
 
   /// Check if crash reporting is enabled
   Future<bool> isCrashlyticsCollectionEnabled() async {
-    return await _crashlytics.isCrashlyticsCollectionEnabled();
+    return _crashlytics.isCrashlyticsCollectionEnabled;
   }
 
   /// Enable or disable crash reporting

@@ -65,8 +65,9 @@ class SyncBloc extends Bloc<SyncEvent, SyncState> {
       await Future.delayed(const Duration(seconds: 2));
       emit(SyncIdle(lastSyncTime: DateTime.now()));
     } catch (e) {
+      print('Sync error details: $e'); // Debug logging
       emit(SyncError(
-        message: 'Failed to sync to cloud',
+        message: 'Failed to sync to cloud: ${e.toString()}',
         error: e,
       ));
       // Return to idle after error

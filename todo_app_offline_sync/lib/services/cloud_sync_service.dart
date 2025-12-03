@@ -26,6 +26,9 @@ class CloudSyncService {
     String authToken,
   ) async {
     try {
+      print('Uploading ${tasks.length} tasks to $baseUrl/tasks/sync');
+      print('Sample task data: ${tasks.isNotEmpty ? tasks.first.toJson() : "no tasks"}');
+      
       final response = await _dio.post(
         '$baseUrl/tasks/sync',
         data: {
@@ -36,20 +39,30 @@ class CloudSyncService {
             'Authorization': 'Bearer $authToken',
             'Content-Type': 'application/json',
           },
+          validateStatus: (status) => status! < 500, // Don't throw on 4xx errors
         ),
       );
+
+      print('Response status: ${response.statusCode}');
+      print('Response data: ${response.data}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final List<dynamic> tasksJson = response.data['tasks'] as List<dynamic>;
         return tasksJson
             .map((json) => Task.fromJson(json as Map<String, dynamic>))
             .toList();
+      } else if (response.statusCode == 400) {
+        // Validation error
+        throw Exception('Validation error: ${response.data}');
       } else {
-        throw Exception('Failed to upload tasks: ${response.statusCode}');
+        throw Exception('Failed to upload tasks: ${response.statusCode} - ${response.data}');
       }
     } on DioException catch (e) {
-      throw Exception('Network error during upload: ${e.message}');
+      print('DioException: ${e.message}');
+      print('Response: ${e.response?.data}');
+      throw Exception('Network error during upload: ${e.message} - ${e.response?.data}');
     } catch (e) {
+      print('Upload error: $e');
       throw Exception('Failed to upload tasks: $e');
     }
   }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'dart:async';
 import 'blocs/task_bloc_exports.dart';
 import 'blocs/auth_bloc_exports.dart';
 import 'blocs/sync_bloc_exports.dart';
@@ -12,6 +15,7 @@ import 'services/cloud_sync_service.dart';
 import 'services/notification_service.dart';
 import 'services/connectivity_service.dart';
 import 'services/sync_queue_service.dart';
+import 'services/crashlytics_service.dart';
 import 'screens/home_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/task_form_screen.dart';
@@ -22,26 +26,43 @@ import 'models/task.dart';
 // Global navigator key for navigation from notifications
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+// Global Crashlytics service
+final crashlyticsService = CrashlyticsService();
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MyApp());
-  // Initialize notification service
-  final notificationService = NotificationService();
-  await notificationService.initialize();
-  
-  // Set up notification tap handler
-  notificationService.onNotificationTap = (taskId) {
-    // Navigate to task edit screen when notification is tapped
-    navigatorKey.currentState?.pushNamed(
-      '/task/edit',
-      arguments: null, // We'll need to fetch the task by ID
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    
+    // Initialize timezone database
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('UTC'));
+    
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
     );
-  };
-  
-  runApp(const MyApp());
+    
+    // Initialize Crashlytics
+    await crashlyticsService.initialize();
+    crashlyticsService.log('App started');
+    
+    // Initialize notification service
+    final notificationService = NotificationService();
+    await notificationService.initialize();
+    
+    // Set up notification tap handler
+    notificationService.onNotificationTap = (taskId) {
+      // Navigate to task edit screen when notification is tapped
+      navigatorKey.currentState?.pushNamed(
+        '/task/edit',
+        arguments: null, // We'll need to fetch the task by ID
+      );
+    };
+    
+    runApp(const MyApp());
+  }, (error, stack) {
+    // Catch all uncaught async errors
+    crashlyticsService.recordError(error, stack, reason: 'Uncaught async error');
+  });
 }
 
 class MyApp extends StatefulWidget {

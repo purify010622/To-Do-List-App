@@ -12,7 +12,7 @@ class AppConfig {
       case Environment.development:
         return 'http://192.168.1.x:3000/api'; // Replace x with your computer's IP
       case Environment.production:
-        return 'https://codsoft-dad2.onrender.com'; // TODO: Update with your deployed URL
+        return 'https://codsoft-dad2.onrender.com/api';
     }
   }
 

@@ -118,9 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, authState) {
               if (authState is Authenticated) {
+                final user = authState.user;
+                final displayName = user.displayName ?? user.email ?? 'User';
+                
                 return PopupMenuButton<String>(
                   icon: const Icon(Icons.account_circle),
-                  tooltip: 'Account',
+                  tooltip: displayName,
                   onSelected: (value) {
                     if (value == 'signout') {
                       context.read<AuthBloc>().add(const SignOut());
@@ -128,12 +131,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   itemBuilder: (context) => [
                     PopupMenuItem(
+                      enabled: false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            displayName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            user.email,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          const Divider(),
+                        ],
+                      ),
+                    ),
+                    const PopupMenuItem(
                       value: 'signout',
                       child: Row(
                         children: [
-                          const Icon(Icons.logout),
-                          const SizedBox(width: 8),
-                          const Text('Sign Out'),
+                          Icon(Icons.logout),
+                          SizedBox(width: 8),
+                          Text('Sign Out'),
                         ],
                       ),
                     ),
