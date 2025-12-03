@@ -61,6 +61,12 @@ todo_app_offline_sync/macos/Flutter/GeneratedPluginRegistrant.swift
 todo_app_offline_sync/windows/flutter/generated_plugin_registrant.cc
 todo_app_offline_sync/windows/flutter/generated_plugins.cmake
 
+# Flutter ephemeral folders (build artifacts)
+**/ios/Flutter/ephemeral/
+**/macos/Flutter/ephemeral/
+**/windows/flutter/ephemeral/
+**/linux/flutter/ephemeral/
+
 # Android
 todo_app_offline_sync/android/app/debug/
 todo_app_offline_sync/android/app/profile/
