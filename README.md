@@ -31,7 +31,7 @@
 
 > 🎥 **Demo video coming soon on LinkedIn!**
 > 
-> Follow [@kashish-pandey](https://linkedin.com/in/kashish-pandey) for updates
+> Follow [@sarthak-yerpude](https://linkedin.com/in/sarthak-yerpude) for updates
 
 ---
 
@@ -124,7 +124,7 @@ You'll also need accounts for:
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/pandeykashish1221-source/codsoft-todolist-app.git
+git clone https://github.com/yerpudesarthak1221-source/codsoft-todolist-app.git
 cd codsoft-todolist-app
 ```
 
@@ -597,10 +597,10 @@ This project is open source and available for educational purposes.
 
 ## 👨‍💻 Author
 
-**Kashish Pandey**
+**sarthak yerpude**
 
-- GitHub: [@pandeykashish1221-source](https://github.com/pandeykashish1221-source)
-- LinkedIn: [Demo coming soon!](https://linkedin.com/in/kashish-pandey)
+- GitHub: [@yerpudesarthak1221-source](https://github.com/yerpudesarthak1221-source)
+- LinkedIn: [Demo coming soon!](https://linkedin.com/in/sarthak-yerpude)
 
 ---
 
@@ -618,7 +618,7 @@ This project is open source and available for educational purposes.
 
 Need help?
 
-- 🐛 [Open an issue](https://github.com/pandeykashish1221-source/codsoft-todolist-app/issues)
+- 🐛 [Open an issue](https://github.com/yerpudesarthak1221-source/codsoft-todolist-app/issues)
 - 📧 Contact via GitHub profile
 - 💬 Check existing issues for solutions
 
